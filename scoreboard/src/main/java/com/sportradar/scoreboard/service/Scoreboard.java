@@ -53,7 +53,17 @@ public class Scoreboard implements ScoreboardService {
 
     @Override
     public void finishMatch(String homeTeam, String awayTeam) {
-        
+        validateTeams(homeTeam, awayTeam);
+
+        String matchKey = generateKey(homeTeam, awayTeam);
+
+        if (!activeMatches.containsKey(matchKey)) {
+            throw new IllegalArgumentException("Match between those teams is currently not in progress.");
+        }
+
+        activeMatches.remove(matchKey);
+        activeTeams.remove(homeTeam);
+        activeTeams.remove(awayTeam);
     }
 
     private String generateKey(String homeTeam, String awayTeam) {
