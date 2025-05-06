@@ -246,11 +246,13 @@ class ScoreboardTest {
 
     @Test
     void testGetSummary() throws InterruptedException {
-        scoreboard.startMatch("Uruguay", "Italy");
-        scoreboard.updateScore("Uruguay", "Italy", 6, 6);
-
         scoreboard.startMatch("Spain", "Brazil");
         scoreboard.updateScore("Spain", "Brazil", 10, 2);
+
+        Thread.sleep(100); // sleep so the LocalDateTime is different on next one, where total score is equal.
+
+        scoreboard.startMatch("Uruguay", "Italy");
+        scoreboard.updateScore("Uruguay", "Italy", 6, 6);
 
         scoreboard.startMatch("Mexico", "Canada");
         scoreboard.updateScore("Mexico", "Canada", 0, 5);
@@ -259,7 +261,7 @@ class ScoreboardTest {
         scoreboard.startMatch("Germany", "France");
         scoreboard.updateScore("Germany", "France", 2, 2);
 
-        Thread.sleep(100); // sleep so the LocalDateTime is different on next one, where total score is equal.
+        Thread.sleep(100);
 
         scoreboard.startMatch("Argentina", "Australia");
         scoreboard.updateScore("Argentina", "Australia", 3, 1);
