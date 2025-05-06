@@ -33,7 +33,22 @@ public class Scoreboard implements ScoreboardService {
 
     @Override
     public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+        validateTeams(homeTeam, awayTeam);
 
+        if (homeScore < 0 || awayScore < 0) {
+            throw new IllegalArgumentException("Invalid score argument");
+        }
+
+        String matchKey = generateKey(homeTeam, awayTeam);
+
+        if (!activeMatches.containsKey(matchKey)) {
+            throw new IllegalArgumentException("Match between those teams is currently not in progress.");
+        }
+
+        Match match = activeMatches.get(matchKey);
+
+        match.setHomeScore(homeScore);
+        match.setAwayScore(awayScore);
     }
 
     private String generateKey(String homeTeam, String awayTeam) {
@@ -43,6 +58,10 @@ public class Scoreboard implements ScoreboardService {
     private void validateTeams(String homeTeam, String awayTeam) {
         if (homeTeam == null || awayTeam == null || homeTeam.isBlank() || awayTeam.isBlank()) {
             throw new IllegalArgumentException("Invalid team name.");
+        }
+
+        if (homeTeam.equals(awayTeam)) {
+            throw new IllegalArgumentException("Two team names must not be equal.");
         }
     }
 }
