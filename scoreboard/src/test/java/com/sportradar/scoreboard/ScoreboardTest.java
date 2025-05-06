@@ -164,7 +164,7 @@ class ScoreboardTest {
     }
 
     @Test
-    void testUpdateScore_ArgumentsNotValid_SameTeamPassedTwice_ShouldThrow() {
+    void testUpdateScore_InvalidTeamArgument_SameTeamPassedTwice_ShouldThrow() {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.updateScore("team1", "team1", 0, 0));
 
@@ -172,9 +172,72 @@ class ScoreboardTest {
     }
 
     @Test
-    void testScore_MatchNotActive_ShouldThrow() {
+    void testUpdateScore_MatchNotActive_ShouldThrow() {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.updateScore("team1", "team2", 1, 0));
+
+        assertEquals(exception.getMessage(), "Match between those teams is currently not in progress.");
+    }
+
+    @Test
+    void testFinishMatch_Success() {
+        scoreboard.startMatch("team1", "team2");
+
+        scoreboard.finishMatch("team1", "team2");
+
+        // no exception thrown - success
+    }
+
+    @Test
+    void testFinishMatch_ArgumentsNotValid_ShouldThrow() {
+        String expectedMessage = "Invalid team name.";
+
+        assertAll(
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.finishMatch(null, null));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.finishMatch(" ", ""));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.finishMatch("team1", null));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.finishMatch(null, "team1"));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.finishMatch("", "team2"));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.finishMatch("team2", ""));
+                    assertEquals(expectedMessage, exception.getMessage());
+                }
+        );
+    }
+
+    @Test
+    void testFinishMatch_ArgumentsNotValid_SameTeamPassedTwice_ShouldThrow() {
+        Exception exception = assertThrows(IllegalArgumentException.class, ()
+                -> scoreboard.finishMatch("team1", "team1"));
+
+        assertEquals(exception.getMessage(), "Two team names must not be equal.");
+    }
+
+    @Test
+    void testFinishMatch_MatchNotActive_ShouldThrow() {
+        Exception exception = assertThrows(IllegalArgumentException.class, ()
+                -> scoreboard.finishMatch("team1", "team2"));
 
         assertEquals(exception.getMessage(), "Match between those teams is currently not in progress.");
     }
