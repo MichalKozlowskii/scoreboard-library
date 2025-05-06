@@ -33,6 +33,11 @@ public class Scoreboard implements ScoreboardService {
         activeTeams.add(awayTeam);
     }
 
+    @Override
+    public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+
+    }
+
     private String generateKey(String homeTeam, String awayTeam) {
         return String.format("%s - %s", homeTeam, awayTeam);
     }
