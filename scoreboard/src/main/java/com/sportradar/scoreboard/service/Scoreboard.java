@@ -12,9 +12,7 @@ public class Scoreboard implements ScoreboardService {
 
     @Override
     public void startMatch(String homeTeam, String awayTeam) {
-        if (homeTeam == null || awayTeam == null || homeTeam.isBlank() || awayTeam.isBlank()) {
-            throw new IllegalArgumentException();
-        }
+        validateTeams(homeTeam, awayTeam);
 
         String matchKey = generateKey(homeTeam, awayTeam);
 
@@ -40,5 +38,11 @@ public class Scoreboard implements ScoreboardService {
 
     private String generateKey(String homeTeam, String awayTeam) {
         return String.format("%s - %s", homeTeam, awayTeam);
+    }
+
+    private void validateTeams(String homeTeam, String awayTeam) {
+        if (homeTeam == null || awayTeam == null || homeTeam.isBlank() || awayTeam.isBlank()) {
+            throw new IllegalArgumentException("Invalid team name.");
+        }
     }
 }
