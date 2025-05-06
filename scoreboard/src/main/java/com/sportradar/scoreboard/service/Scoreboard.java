@@ -2,8 +2,6 @@ package com.sportradar.scoreboard.service;
 
 import com.sportradar.scoreboard.model.Match;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

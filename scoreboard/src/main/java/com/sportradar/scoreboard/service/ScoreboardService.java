@@ -1,7 +1,5 @@
 package com.sportradar.scoreboard.service;
 
-import com.sportradar.scoreboard.model.Match;
-
 import java.util.List;
 
 public interface ScoreboardService {
