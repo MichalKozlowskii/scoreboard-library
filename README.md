@@ -25,3 +25,6 @@ All commits contain the suitable prefix. Acceptable prefixes:
     <version>1.0</version>
 </dependency>
 ```
+
+### Documentation
+[See documentation](https://github.com/MichalKozlowskii/scoreboard-library/wiki/Documentation)
