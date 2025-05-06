@@ -17,8 +17,7 @@ class ScoreboardTest {
 
     @Test
     void testStartMatch_Success() {
-        scoreboard.startMatch("team1", "team2");
-        // if no exception is thrown - success
+        assertDoesNotThrow(() -> scoreboard.startMatch("team1", "team2"));
     }
 
     @Test
@@ -100,8 +99,7 @@ class ScoreboardTest {
 
         scoreboard.startMatch(team1, team2);
 
-        scoreboard.updateScore(team1, team2, 1, 0);
-        // no exception thrown - success
+        assertDoesNotThrow(() -> scoreboard.updateScore(team1, team2, 1, 0));
     }
 
     @Test
@@ -185,9 +183,7 @@ class ScoreboardTest {
     void testFinishMatch_Success() {
         scoreboard.startMatch("team1", "team2");
 
-        scoreboard.finishMatch("team1", "team2");
-
-        // no exception thrown - success
+        assertDoesNotThrow(() -> scoreboard.finishMatch("team1", "team2"));
     }
 
     @Test
