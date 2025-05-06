@@ -55,7 +55,7 @@ class ScoreboardTest {
         String activeTeam = "team1";
         String team2 = "team2";
 
-        scoreboard.startMatch(activeTeam, "team2");
+        scoreboard.startMatch(activeTeam, "team3");
 
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.startMatch(activeTeam, team2));
