@@ -14,10 +14,10 @@ All commits contain the suitable prefix. Acceptable prefixes:
 
 ### Installation
 1. Clone repository
-2. Use any terminal and go to library's directory
-3. Use `mvn clean package`
-4. Use `mvn install`
-5. Add dependency to your maven project
+2. Go to library's directory
+3. Build the library jar `mvn clean package`
+4. Install the library to the local Maven repository `mvn install`
+5. Add dependency to your maven project in pom.xml
 ```
 <dependency>
     <groupId>com.sportradar</groupId>
