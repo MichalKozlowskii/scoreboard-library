@@ -4,6 +4,8 @@ import com.sportradar.scoreboard.service.Scoreboard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreboardTest {
@@ -240,5 +242,46 @@ class ScoreboardTest {
                 -> scoreboard.finishMatch("team1", "team2"));
 
         assertEquals(exception.getMessage(), "Match between those teams is currently not in progress.");
+    }
+
+    @Test
+    void testGetSummary() throws InterruptedException {
+        scoreboard.startMatch("Uruguay", "Italy");
+        scoreboard.updateScore("Uruguay", "Italy", 6, 6);
+
+        scoreboard.startMatch("Spain", "Brazil");
+        scoreboard.updateScore("Spain", "Brazil", 10, 2);
+
+        scoreboard.startMatch("Mexico", "Canada");
+        scoreboard.updateScore("Mexico", "Canada", 0, 5);
+
+
+        scoreboard.startMatch("Germany", "France");
+        scoreboard.updateScore("Germany", "France", 2, 2);
+
+        Thread.sleep(100); // sleep so the LocalDateTime is different on next one, where total score is equal.
+
+        scoreboard.startMatch("Argentina", "Australia");
+        scoreboard.updateScore("Argentina", "Australia", 3, 1);
+
+        // check if match is finished properly.
+        scoreboard.startMatch("Lithuania", "Latvia");
+        scoreboard.finishMatch("Lithuania", "Latvia");
+
+        List<String> summary = scoreboard.getSummary();
+
+        assertNotNull(summary);
+
+        assertEquals(summary.size(), 5);
+        assertEquals(summary.get(0), "Uruguay 6 - Italy 6");
+        assertEquals(summary.get(1), "Spain 10 - Brazil 2");
+        assertEquals(summary.get(2), "Mexico 0 - Canada 5");
+        assertEquals(summary.get(3), "Argentina 3 - Australia 1");
+        assertEquals(summary.get(4), "Germany 2 - France 2");
+    }
+
+    @Test
+    void testGetSummary_Empty() {
+        assertTrue(scoreboard.getSummary().isEmpty());
     }
 }
