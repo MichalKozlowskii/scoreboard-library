@@ -21,19 +21,39 @@ class ScoreboardTest {
 
     @Test
     void testStartMatch_ArgumentsNotValid_ShouldThrow() {
+        String expectedMessage = "Invalid team name.";
+
         assertAll(
-                () -> assertThrows(IllegalArgumentException.class, ()
-                        -> scoreboard.startMatch(null, null)),
-                () -> assertThrows(IllegalArgumentException.class, ()
-                        -> scoreboard.startMatch("", "")),
-                () -> assertThrows(IllegalArgumentException.class, ()
-                        -> scoreboard.startMatch("team1", null)),
-                () -> assertThrows(IllegalArgumentException.class, ()
-                        -> scoreboard.startMatch(null, "team1")),
-                () -> assertThrows(IllegalArgumentException.class, ()
-                        -> scoreboard.startMatch("", "team2")),
-                () -> assertThrows(IllegalArgumentException.class, ()
-                        -> scoreboard.startMatch("team2", ""))
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.startMatch(null, null));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.startMatch("", ""));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.startMatch("team1", null));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.startMatch(null, "team1"));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.startMatch("", "team2"));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                            scoreboard.startMatch("team2", ""));
+                    assertEquals(expectedMessage, exception.getMessage());
+                }
         );
     }
 
@@ -99,7 +119,7 @@ class ScoreboardTest {
 
     @Test
     void testScore_InvalidTeamArgument_ShouldThrow() {
-        String expectedMessage = "Team must not be a blank string or null.";
+        String expectedMessage = "Invalid team name.";
 
         assertAll(
                 () -> {
