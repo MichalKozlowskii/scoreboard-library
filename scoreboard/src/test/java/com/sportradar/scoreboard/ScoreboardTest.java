@@ -58,6 +58,14 @@ class ScoreboardTest {
     }
 
     @Test
+    void testStartMatch_ArgumentsNotValid_SameTeamPassedTwice_ShouldThrow() {
+        Exception exception = assertThrows(IllegalArgumentException.class, ()
+                -> scoreboard.startMatch("team1", "team1"));
+
+        assertEquals(exception.getMessage(), "Two team names must not be equal.");
+    }
+
+    @Test
     void testStartMatch_MatchAlreadyStarted_ShouldThrow() {
         String team1 = "team1";
         String team2 = "team2";
@@ -153,6 +161,14 @@ class ScoreboardTest {
                     assertEquals(expectedMessage, exception.getMessage());
                 }
         );
+    }
+
+    @Test
+    void testUpdateScore_ArgumentsNotValid_SameTeamPassedTwice_ShouldThrow() {
+        Exception exception = assertThrows(IllegalArgumentException.class, ()
+                -> scoreboard.updateScore("team1", "team1", 0, 0));
+
+        assertEquals(exception.getMessage(), "Two team names must not be equal.");
     }
 
     @Test
