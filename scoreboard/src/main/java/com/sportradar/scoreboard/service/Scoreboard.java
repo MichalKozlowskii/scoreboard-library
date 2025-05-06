@@ -1,4 +1,4 @@
-package com.sportradar.scoreboard;
+package com.sportradar.scoreboard.service;
 
 import com.sportradar.scoreboard.model.Match;
 

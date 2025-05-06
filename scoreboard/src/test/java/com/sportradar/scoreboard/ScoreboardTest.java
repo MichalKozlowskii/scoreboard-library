@@ -1,12 +1,8 @@
 package com.sportradar.scoreboard;
 
-import com.sportradar.scoreboard.model.Match;
+import com.sportradar.scoreboard.service.Scoreboard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
