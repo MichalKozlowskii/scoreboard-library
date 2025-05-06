@@ -17,8 +17,7 @@ class ScoreboardTest {
 
     @Test
     void testStartMatch_Success() {
-        scoreboard.startMatch("team1", "team2");
-        // if no exception is thrown - success
+        assertDoesNotThrow(() -> scoreboard.startMatch("team1", "team2"));
     }
 
     @Test
@@ -64,7 +63,7 @@ class ScoreboardTest {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.startMatch("team1", "team1"));
 
-        assertEquals(exception.getMessage(), "Two team names must not be equal.");
+        assertEquals("Two team names must not be equal.", exception.getMessage());
     }
 
     @Test
@@ -77,7 +76,7 @@ class ScoreboardTest {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.startMatch(team1, team2));
 
-        assertEquals(exception.getMessage(), "Match already started between those teams.");
+        assertEquals("Match already started between those teams.", exception.getMessage());
     }
 
     @Test
@@ -90,7 +89,7 @@ class ScoreboardTest {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.startMatch(activeTeam, team2));
 
-        assertEquals(exception.getMessage(), "One team is currently playing a match.");
+        assertEquals("One team is currently playing a match.", exception.getMessage());
     }
 
     @Test
@@ -100,8 +99,7 @@ class ScoreboardTest {
 
         scoreboard.startMatch(team1, team2);
 
-        scoreboard.updateScore(team1, team2, 1, 0);
-        // no exception thrown - success
+        assertDoesNotThrow(() -> scoreboard.updateScore(team1, team2, 1, 0));
     }
 
     @Test
@@ -170,7 +168,7 @@ class ScoreboardTest {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.updateScore("team1", "team1", 0, 0));
 
-        assertEquals(exception.getMessage(), "Two team names must not be equal.");
+        assertEquals("Two team names must not be equal.", exception.getMessage());
     }
 
     @Test
@@ -178,16 +176,14 @@ class ScoreboardTest {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.updateScore("team1", "team2", 1, 0));
 
-        assertEquals(exception.getMessage(), "Match between those teams is currently not in progress.");
+        assertEquals("Match between those teams is currently not in progress.", exception.getMessage());
     }
 
     @Test
     void testFinishMatch_Success() {
         scoreboard.startMatch("team1", "team2");
 
-        scoreboard.finishMatch("team1", "team2");
-
-        // no exception thrown - success
+        assertDoesNotThrow(() -> scoreboard.finishMatch("team1", "team2"));
     }
 
     @Test
@@ -233,7 +229,7 @@ class ScoreboardTest {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.finishMatch("team1", "team1"));
 
-        assertEquals(exception.getMessage(), "Two team names must not be equal.");
+        assertEquals("Two team names must not be equal.", exception.getMessage());
     }
 
     @Test
@@ -241,7 +237,7 @@ class ScoreboardTest {
         Exception exception = assertThrows(IllegalArgumentException.class, ()
                 -> scoreboard.finishMatch("team1", "team2"));
 
-        assertEquals(exception.getMessage(), "Match between those teams is currently not in progress.");
+        assertEquals("Match between those teams is currently not in progress.", exception.getMessage());
     }
 
     @Test
@@ -274,12 +270,12 @@ class ScoreboardTest {
 
         assertNotNull(summary);
 
-        assertEquals(summary.size(), 5);
-        assertEquals(summary.get(0), "Uruguay 6 - Italy 6");
-        assertEquals(summary.get(1), "Spain 10 - Brazil 2");
-        assertEquals(summary.get(2), "Mexico 0 - Canada 5");
-        assertEquals(summary.get(3), "Argentina 3 - Australia 1");
-        assertEquals(summary.get(4), "Germany 2 - France 2");
+        assertEquals(5, summary.size());
+        assertEquals("Uruguay 6 - Italy 6", summary.get(0));
+        assertEquals("Spain 10 - Brazil 2", summary.get(1));
+        assertEquals("Mexico 0 - Canada 5", summary.get(2));
+        assertEquals("Argentina 3 - Australia 1", summary.get(3));
+        assertEquals("Germany 2 - France 2", summary.get(4));
     }
 
     @Test
