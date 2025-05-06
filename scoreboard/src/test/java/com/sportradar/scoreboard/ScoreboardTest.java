@@ -88,7 +88,7 @@ class ScoreboardTest {
         String team1 = "team1";
         String team2 = "team2";
 
-        scoreboard.startMatch(team1, team1);
+        scoreboard.startMatch(team1, team2);
 
         scoreboard.updateScore(team1, team2, 1, 0);
         // no exception thrown - success
@@ -96,7 +96,7 @@ class ScoreboardTest {
 
     @Test
     void tesUpdateScore_InvalidScoreArgument_ShouldThrow() {
-        String expectedMessage = "Score argument must not be negative.";
+        String expectedMessage = "Invalid score argument";
 
         assertAll(
                 () -> {
