@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Scoreboard implements ScoreboardService {
+public class Scoreboard implements ScoreboardInterface {
     private final Set<String> activeTeams = ConcurrentHashMap.newKeySet(); // thread safe
     private final Map<String, Match> activeMatches = new ConcurrentHashMap<>(); // thread safe
 
