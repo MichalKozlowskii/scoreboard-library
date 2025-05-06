@@ -2,6 +2,7 @@ package com.sportradar.scoreboard.service;
 
 import com.sportradar.scoreboard.model.Match;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -64,6 +65,22 @@ public class Scoreboard implements ScoreboardService {
         activeMatches.remove(matchKey);
         activeTeams.remove(homeTeam);
         activeTeams.remove(awayTeam);
+    }
+
+    @Override
+    public List<String> getSummary() {
+        return activeMatches.values().stream()
+                .sorted((match1, match2) -> {
+                    int scoreCompare = Integer.compare(match2.getTotalScore(), match1.getTotalScore());
+
+                    if (scoreCompare != 0) {
+                        return scoreCompare;
+                    } else {
+                        return match2.getStartTime().compareTo(match1.getStartTime());
+                    }
+                })
+                .map(Match::displayScore)
+                .toList();
     }
 
     private String generateKey(String homeTeam, String awayTeam) {

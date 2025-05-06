@@ -44,6 +44,10 @@ public class Match {
     public LocalDateTime getStartTime() {
         return this.startTime;
     }
+    
+    public int getTotalScore() {
+        return this.homeScore + this.awayScore;
+    }
 
     public String displayScore() {
         return String.format("%s %d - %s %d", homeTeam, homeScore, awayTeam, awayScore);
