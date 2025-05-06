@@ -51,6 +51,11 @@ public class Scoreboard implements ScoreboardService {
         match.setAwayScore(awayScore);
     }
 
+    @Override
+    public void finishMatch(String homeTeam, String awayTeam) {
+        
+    }
+
     private String generateKey(String homeTeam, String awayTeam) {
         return String.format("%s - %s", homeTeam, awayTeam);
     }
