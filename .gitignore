@@ -1,0 +1,27 @@
+# Maven
+scoreboard/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/maven-wrapper.xml
+
+# IntelliJ IDEA
+.idea/
+!.idea/codeStyles
+!.idea/compiler.xml
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/vcs.xml
+
+# Exclude specific IntelliJ files
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+# Logs, temp files, OS junk
+*.log
+*.DS_Store
+*.swp
+*.bak
