@@ -62,4 +62,84 @@ class ScoreboardTest {
 
         assertEquals(exception.getMessage(), "One team is currently playing a match.");
     }
+
+    @Test
+    void testUpdateScore_Success() {
+        String team1 = "team1";
+        String team2 = "team2";
+
+        scoreboard.startMatch(team1, team1);
+
+        scoreboard.updateScore(team1, team2, 1, 0);
+        // no exception thrown - success
+    }
+
+    @Test
+    void tesUpdateScore_InvalidScoreArgument_ShouldThrow() {
+        String expectedMessage = "Score argument must not be negative.";
+
+        assertAll(
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore("team1", "team2", -1, -1));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore("team1", "team2", -1, 0));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore("team1", "team2", 0, -1));
+                    assertEquals(expectedMessage, exception.getMessage());
+                }
+        );
+    }
+
+    @Test
+    void testScore_InvalidTeamArgument_ShouldThrow() {
+        String expectedMessage = "Team must not be a blank string or null.";
+
+        assertAll(
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore(null, null, 0, 0));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore(" ", "", 0, 0));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore("team1", "", 0, 0));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore("team1", null, 0, 0));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore("", "team1", 0, 0));
+                    assertEquals(expectedMessage, exception.getMessage());
+                },
+                () -> {
+                    Exception exception = assertThrows(IllegalArgumentException.class, ()
+                            -> scoreboard.updateScore(null, "team1", 0, 0));
+                    assertEquals(expectedMessage, exception.getMessage());
+                }
+        );
+    }
+
+    @Test
+    void testScore_MatchNotActive_ShouldThrow() {
+        Exception exception = assertThrows(IllegalArgumentException.class, ()
+                -> scoreboard.updateScore("team1", "team2", 1, 0));
+
+        assertEquals(exception.getMessage(), "Match between those teams is currently not in progress.");
+    }
 }
